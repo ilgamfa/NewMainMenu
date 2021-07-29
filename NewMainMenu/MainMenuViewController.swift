@@ -9,15 +9,16 @@ import UIKit
 
 class MainMenuViewController: UIViewController {
 
-    var topBarView: UIView = {
+   private var topBarView: UIView = {
         var top = UIView()
         top.backgroundColor = .white
         return top
     }()
     
-    var searchBar: UISearchBar = {
+    private var searchBar: UISearchBar = {
         var bar = UISearchBar()
         bar.placeholder = "Поиск франшизы"
+        bar.searchTextField.backgroundColor = .white
         bar.layer.borderWidth = 1
         bar.layer.borderColor = UIColor.white.cgColor
         
@@ -25,11 +26,31 @@ class MainMenuViewController: UIViewController {
         return bar
     }()
     
-    var menuButton: UIButton = {
+    private var whiteTopSpace: UIView = {
+        var space = UIView()
+        space.backgroundColor = .white
+        return space
+    }()
+    
+    private var menuButton: UIButton = {
         var menu = UIButton()
         menu.setImage(UIImage(named: "menuItem"), for: .normal)
         return menu
     }()
+    
+    private var chooseCategoryLabel: UILabel = {
+        var label = UILabel()
+        label.text = "Выберете категорию"
+        label.font = UIFont.boldSystemFont(ofSize: 22)
+        return label
+    }()
+    
+    private var categoryCollectionView: UICollectionView = {
+        var collectionView = UICollectionView()
+        return collectionView
+    }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,13 +61,22 @@ class MainMenuViewController: UIViewController {
     
     
     func addSubViews() {
+        view.addSubview(whiteTopSpace)
         view.addSubview(topBarView)
         topBarView.addSubview(searchBar)
         topBarView.addSubview(menuButton)
+        view.addSubview(chooseCategoryLabel)
     }
     
     
     override func viewDidLayoutSubviews() {
+        whiteTopSpace.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            whiteTopSpace.topAnchor.constraint(equalTo: view.topAnchor),
+            whiteTopSpace.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            whiteTopSpace.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            whiteTopSpace.bottomAnchor.constraint(equalTo: topBarView.topAnchor)
+        ])
         
         topBarView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -73,6 +103,16 @@ class MainMenuViewController: UIViewController {
             menuButton.heightAnchor.constraint(equalToConstant: 14),
             menuButton.bottomAnchor.constraint(equalTo: topBarView.bottomAnchor)
         ])
+        
+        chooseCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            chooseCategoryLabel.topAnchor.constraint(equalTo: topBarView.bottomAnchor, constant: 16),
+            chooseCategoryLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            chooseCategoryLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            chooseCategoryLabel.heightAnchor.constraint(equalToConstant: 22)
+          
+        ])
+        
         
         
     }
