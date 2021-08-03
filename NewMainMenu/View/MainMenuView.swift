@@ -11,6 +11,10 @@ import UIKit
 class MainMenuView: UIView{
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        collectionCategoryView.dataSource = self
+        collectionCategoryView.delegate = self
+        
         setupViews()
         setupConstraints()
     }
@@ -65,6 +69,32 @@ class MainMenuView: UIView{
         return label
     }()
     
+    private let selfInvestmentLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Или свои инвестиции"
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let collectionCategoryView: UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: 80, height: 122)
+        layout.scrollDirection = .horizontal
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+//        view.backgroundColor = UIColor(named: "backgroungColor")
+        view.backgroundColor = .white
+        
+        
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
    // MARK: FUNCTIONS
     private func setupViews() {
         self.addSubview(mainView)
@@ -73,6 +103,8 @@ class MainMenuView: UIView{
         mainView.addSubview(chooseCategoryLabel)
         topBarView.addSubview(searchBar)
         topBarView.addSubview(menuButton)
+        mainView.addSubview(collectionCategoryView)
+        mainView.addSubview(selfInvestmentLabel)
         
     }
     
@@ -120,6 +152,34 @@ class MainMenuView: UIView{
             chooseCategoryLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16)
         ])
         
+        NSLayoutConstraint.activate([
+            collectionCategoryView.topAnchor.constraint(equalTo: chooseCategoryLabel.bottomAnchor, constant: 8),
+            collectionCategoryView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
+            collectionCategoryView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
+            collectionCategoryView.heightAnchor.constraint(equalToConstant: 139)
+        ])
+        NSLayoutConstraint.activate([
+            selfInvestmentLabel.topAnchor.constraint(equalTo: collectionCategoryView.bottomAnchor, constant: 16.5),
+            selfInvestmentLabel.heightAnchor.constraint(equalToConstant: 22),
+            selfInvestmentLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
+            selfInvestmentLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16)
+        ])
     }
     
+}
+
+extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+        cell.backgroundColor = .blue
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 16
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("tapped on item \(indexPath.row)")
+    }
 }
