@@ -18,6 +18,7 @@ class MainMenuView: UIView{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    // MARK: SUB VIEWS
     
     private let mainView: UIView = {
         let view = UIView(frame: .zero)
@@ -49,21 +50,29 @@ class MainMenuView: UIView{
         return bar
     }()
     
+    private let menuButton: UIButton = {
+       let button = UIButton()
+        button.setImage(UIImage(named: "menuList"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private let chooseCategoryLabel: UILabel = {
         let label = UILabel()
         label.text = "Выберите категорию"
-        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-   
+   // MARK: FUNCTIONS
     private func setupViews() {
         self.addSubview(mainView)
         mainView.addSubview(whiteTopSpace)
         mainView.addSubview(topBarView)
         mainView.addSubview(chooseCategoryLabel)
         topBarView.addSubview(searchBar)
+        topBarView.addSubview(menuButton)
         
     }
     
@@ -91,9 +100,16 @@ class MainMenuView: UIView{
         ])
         
         NSLayoutConstraint.activate([
+            menuButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
+            menuButton.leadingAnchor.constraint(equalTo: topBarView.leadingAnchor, constant: 19),
+            menuButton.heightAnchor.constraint(equalToConstant: 14),
+            menuButton.widthAnchor.constraint(equalToConstant: 18),
+        ])
+        
+        NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topBarView.topAnchor),
             searchBar.bottomAnchor.constraint(equalTo: topBarView.bottomAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: topBarView.leadingAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: menuButton.trailingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: topBarView.trailingAnchor),
         ])
         
