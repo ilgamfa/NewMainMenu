@@ -13,7 +13,7 @@ struct CustomData {
 }
 
 
-final class CustomCollectionCategoryCell: UICollectionViewCell {
+final class CustomCollectionCell: UICollectionViewCell {
     
     var data: CustomData? {
         didSet {
@@ -48,3 +48,5 @@ final class CustomCollectionCategoryCell: UICollectionViewCell {
     }
     
 }
+
+
