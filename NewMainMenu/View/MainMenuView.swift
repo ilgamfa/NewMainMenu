@@ -12,8 +12,13 @@ class MainMenuView: UIView{
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        collectionCategoryView.tag = 101
         collectionCategoryView.dataSource = self
         collectionCategoryView.delegate = self
+        
+        collectionInvestView.tag = 102
+        collectionInvestView.delegate = self
+        collectionInvestView.dataSource = self
         
         setupViews()
         setupConstraints()
@@ -80,20 +85,34 @@ class MainMenuView: UIView{
     private let collectionCategoryView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 17, right: 0)
         layout.itemSize = CGSize(width: 80, height: 122)
         layout.scrollDirection = .horizontal
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-//        view.backgroundColor = UIColor(named: "backgroungColor")
-        view.backgroundColor = .white
-        
-        
-        
+        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "CollectionCategoryCell")
+        view.backgroundColor = UIColor(named: "backgroungColor")
+//        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    
+    private let collectionInvestView: UICollectionView = {
+
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: 101, height: 41)
+        layout.scrollDirection = .horizontal
+
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "CollectionInvestCell")
+        view.backgroundColor = UIColor(named: "backgroungColor")
+//        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     
    // MARK: FUNCTIONS
     private func setupViews() {
@@ -105,6 +124,7 @@ class MainMenuView: UIView{
         topBarView.addSubview(menuButton)
         mainView.addSubview(collectionCategoryView)
         mainView.addSubview(selfInvestmentLabel)
+        mainView.addSubview(collectionInvestView)
         
     }
     
@@ -164,19 +184,44 @@ class MainMenuView: UIView{
             selfInvestmentLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
             selfInvestmentLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16)
         ])
+        
+        NSLayoutConstraint.activate([
+            collectionInvestView.topAnchor.constraint(equalTo: selfInvestmentLabel.bottomAnchor, constant: 8),
+            collectionInvestView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
+            collectionInvestView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
+            collectionInvestView.heightAnchor.constraint(equalToConstant: 41)
+        ])
+        
     }
     
 }
+// MARK: EXTENSION
 
 extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate{
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-        cell.backgroundColor = .blue
-        return cell
+        
+        if collectionView == collectionCategoryView {
+            let collectionCategoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCategoryCell", for: indexPath)
+            collectionCategoryCell.backgroundColor = .blue
+            return collectionCategoryCell
+        }
+        else {
+            let collectionInvestCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionInvestCell", for: indexPath)
+            collectionInvestCell.backgroundColor = .blue
+            return collectionInvestCell
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 16
+        if (collectionView == collectionCategoryView) {
+            return 16
+        }
+        else if (collectionView == collectionInvestView) {
+            return 7
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
