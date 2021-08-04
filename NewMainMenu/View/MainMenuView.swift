@@ -9,6 +9,27 @@ import Foundation
 import UIKit
 
 class MainMenuView: UIView{
+   
+    
+    fileprivate let imageCollectionCategory = [
+        CustomData(backgroundImage: UIImage(named: "imageAllCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageAutoCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageChildCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageInternetCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageEduCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageRecreationCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageFoodCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageFabricaCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageRetailCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageSportCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageDevelopCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageHomeCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageBusinessCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageCitizenCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageFinanceCat")!),
+        CustomData(backgroundImage: UIImage(named: "imageMedicineCat")!),
+    ]
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -90,12 +111,14 @@ class MainMenuView: UIView{
         layout.scrollDirection = .horizontal
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "CollectionCategoryCell")
+        view.register(CustomCollectionCategoryCell.self, forCellWithReuseIdentifier: "CollectionCategoryCell")
         view.backgroundColor = UIColor(named: "backgroungColor")
 //        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    
     
     
     private let collectionInvestView: UICollectionView = {
@@ -114,7 +137,8 @@ class MainMenuView: UIView{
     }()
     
     
-   // MARK: FUNCTIONS
+   // MARK: Setup Views
+    
     private func setupViews() {
         self.addSubview(mainView)
         mainView.addSubview(whiteTopSpace)
@@ -127,6 +151,8 @@ class MainMenuView: UIView{
         mainView.addSubview(collectionInvestView)
         
     }
+    
+    // MARK: Auto Layout Constraints
     
     private func setupConstraints() {
 
@@ -202,8 +228,8 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == collectionCategoryView {
-            let collectionCategoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCategoryCell", for: indexPath)
-            collectionCategoryCell.backgroundColor = .blue
+            let collectionCategoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCategoryCell", for: indexPath) as! CustomCollectionCategoryCell
+            collectionCategoryCell.data = self.imageCollectionCategory[indexPath.item]
             return collectionCategoryCell
         }
         else {
@@ -216,7 +242,7 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (collectionView == collectionCategoryView) {
-            return 16
+            return imageCollectionCategory.count
         }
         else if (collectionView == collectionInvestView) {
             return 7
@@ -225,6 +251,6 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("tapped on item \(indexPath.row)")
+        print("tapped on item \(indexPath.row + 1 )")
     }
 }
