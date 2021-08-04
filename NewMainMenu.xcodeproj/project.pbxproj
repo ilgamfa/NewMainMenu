@@ -13,7 +13,7 @@
 		BB66064C26B1955E0002FC7E /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB66064B26B1955E0002FC7E /* MainMenuViewController.swift */; };
 		BB66065126B1955F0002FC7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB66065026B1955F0002FC7E /* Assets.xcassets */; };
 		BB66065426B1955F0002FC7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB66065226B1955F0002FC7E /* LaunchScreen.storyboard */; };
-		BB87688126B960190081D653 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB87688026B960190081D653 /* CollectionViewCell.swift */; };
+		BB87688126B960190081D653 /* CustomCollectionCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB87688026B960190081D653 /* CustomCollectionCategoryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +25,7 @@
 		BB66065026B1955F0002FC7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB66065326B1955F0002FC7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB66065526B1955F0002FC7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BB87688026B960190081D653 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		BB87688026B960190081D653 /* CustomCollectionCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionCategoryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +42,7 @@
 		BB4E510726B7D19B008C2ABE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BB87688026B960190081D653 /* CollectionViewCell.swift */,
+				BB87688026B960190081D653 /* CustomCollectionCategoryCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -163,7 +163,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB87688126B960190081D653 /* CollectionViewCell.swift in Sources */,
+				BB87688126B960190081D653 /* CustomCollectionCategoryCell.swift in Sources */,
 				BB66064C26B1955E0002FC7E /* MainMenuViewController.swift in Sources */,
 				BB66064826B1955E0002FC7E /* AppDelegate.swift in Sources */,
 				BB4E510B26B7D1BF008C2ABE /* MainMenuView.swift in Sources */,
