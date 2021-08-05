@@ -10,7 +10,7 @@ import UIKit
 
 class MainMenuView: UIView{
    
-    
+    // MARK: Images
     private let imageCollectionCategory = [
         CustomData(backgroundImage: UIImage(named: "imageAllCat")!),
         CustomData(backgroundImage: UIImage(named: "imageAutoCat")!),
@@ -57,7 +57,7 @@ class MainMenuView: UIView{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    // MARK: SUB VIEWS
+    // MARK: Sub Views
     
     private let mainView: UIView = {
         let view = UIView(frame: .zero)
@@ -127,21 +127,17 @@ class MainMenuView: UIView{
         return view
     }()
     
-    
-    
-    
     private let collectionInvestView: UICollectionView = {
 
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 10, right: 0)
-        layout.itemSize = CGSize(width: 101, height: 41)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: 109, height: 49)
         layout.minimumLineSpacing = 8
         layout.scrollDirection = .horizontal
 
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(CustomCollectionCell.self, forCellWithReuseIdentifier: "CollectionInvestCell")
         view.backgroundColor = UIColor(named: "backgroungColor")
-    
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -225,13 +221,13 @@ class MainMenuView: UIView{
             collectionInvestView.topAnchor.constraint(equalTo: selfInvestmentLabel.bottomAnchor, constant: 8),
             collectionInvestView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
             collectionInvestView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
-            collectionInvestView.heightAnchor.constraint(equalToConstant: 45)
+            collectionInvestView.heightAnchor.constraint(equalToConstant: 47)
         ])
         
     }
     
 }
-// MARK: EXTENSION
+// MARK: EXTENSION Main Menu View
 
 extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
@@ -266,15 +262,15 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
 
         if indexPath.item >= 0 && indexPath.item <= 2 && collectionView == collectionInvestView {
             cellWidth = 101
-            cellHeight = 41
+            cellHeight = 47
         }
         else if indexPath.item >= 3 && indexPath.item <= 5 && collectionView == collectionInvestView {
             cellWidth = 112
-            cellHeight = 41
+            cellHeight = 47
         }
         else if indexPath.item == 6  && collectionView == collectionInvestView {
             cellWidth = 155
-            cellHeight = 41
+            cellHeight = 47
         }
         else {
             cellWidth = 80
@@ -284,6 +280,11 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("tapped on item \(indexPath.row + 1 )")
+        if collectionView == collectionCategoryView {
+            print("tapped on item '\(indexPath.row + 1 )' in Category collection")
+        }
+        else {
+            print("tapped on item '\(indexPath.row + 1 )' in Invest collection")
+        }
     }
 }
