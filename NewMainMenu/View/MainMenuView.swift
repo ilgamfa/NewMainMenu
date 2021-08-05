@@ -127,21 +127,17 @@ class MainMenuView: UIView{
         return view
     }()
     
-    
-    
-    
     private let collectionInvestView: UICollectionView = {
 
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 10, right: 0)
-        layout.itemSize = CGSize(width: 101, height: 41)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: 109, height: 49)
         layout.minimumLineSpacing = 8
         layout.scrollDirection = .horizontal
 
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(CustomCollectionCell.self, forCellWithReuseIdentifier: "CollectionInvestCell")
         view.backgroundColor = UIColor(named: "backgroungColor")
-    
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -225,7 +221,7 @@ class MainMenuView: UIView{
             collectionInvestView.topAnchor.constraint(equalTo: selfInvestmentLabel.bottomAnchor, constant: 8),
             collectionInvestView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
             collectionInvestView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
-            collectionInvestView.heightAnchor.constraint(equalToConstant: 45)
+            collectionInvestView.heightAnchor.constraint(equalToConstant: 47)
         ])
         
     }
@@ -266,15 +262,15 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
 
         if indexPath.item >= 0 && indexPath.item <= 2 && collectionView == collectionInvestView {
             cellWidth = 101
-            cellHeight = 41
+            cellHeight = 47
         }
         else if indexPath.item >= 3 && indexPath.item <= 5 && collectionView == collectionInvestView {
             cellWidth = 112
-            cellHeight = 41
+            cellHeight = 47
         }
         else if indexPath.item == 6  && collectionView == collectionInvestView {
             cellWidth = 155
-            cellHeight = 41
+            cellHeight = 47
         }
         else {
             cellWidth = 80
