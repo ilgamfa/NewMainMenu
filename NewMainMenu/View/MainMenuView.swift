@@ -8,38 +8,47 @@
 import Foundation
 import UIKit
 
-class MainMenuView: UIView{
-   
+class MainMenuView: UIView {
+    
     // MARK: Images
     private let imageCollectionCategory = [
-        CustomData(backgroundImage: UIImage(named: "imageAllCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageAutoCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageChildCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageInternetCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageEduCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageRecreationCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageFoodCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageFabricaCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageRetailCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageSportCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageDevelopCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageHomeCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageBusinessCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageCitizenCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageFinanceCat")!),
-        CustomData(backgroundImage: UIImage(named: "imageMedicineCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageAllCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageAutoCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageChildCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageInternetCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageEduCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageRecreationCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageFoodCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageFabricaCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageRetailCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageSportCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageDevelopCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageHomeCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageBusinessCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageCitizenCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageFinanceCat")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "imageMedicineCat")!),
     ]
     
     private let imageCollectionInvest = [
-        CustomData(backgroundImage: UIImage(named: "invest1")!),
-        CustomData(backgroundImage: UIImage(named: "invest2")!),
-        CustomData(backgroundImage: UIImage(named: "invest3")!),
-        CustomData(backgroundImage: UIImage(named: "invest4")!),
-        CustomData(backgroundImage: UIImage(named: "invest5")!),
-        CustomData(backgroundImage: UIImage(named: "invest6")!),
-        CustomData(backgroundImage: UIImage(named: "invest7")!)
+        CustomCollectionData(backgroundImage: UIImage(named: "invest1")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "invest2")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "invest3")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "invest4")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "invest5")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "invest6")!),
+        CustomCollectionData(backgroundImage: UIImage(named: "invest7")!)
     ]
     
+    private let whichFranchise = [
+        CustomTableData(whichFranchise: "Новые франшизы", whichFranchiseImage: UIImage(named: "newFr")!, arrow: UIImage(named: "arrowFr")!),
+        CustomTableData(whichFranchise: "Франшизы со скидкой", whichFranchiseImage: UIImage(named: "saleFr")!, arrow: UIImage(named: "arrowFr")!),
+        CustomTableData(whichFranchise: "Недорогие франшизы", whichFranchiseImage: UIImage(named: "cheapFr")!, arrow: UIImage(named: "arrowFr")!),
+        CustomTableData(whichFranchise: "Отзывы о франшизах", whichFranchiseImage: UIImage(named: "reviewFr")!, arrow: UIImage(named: "arrowFr")!)
+    ]
+    
+    
+    // MARK: Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,6 +58,9 @@ class MainMenuView: UIView{
         
         collectionInvestView.dataSource = self
         collectionInvestView.delegate = self
+        
+        tableView.delegate = self
+        tableView.dataSource = self
         
         setupViews()
         setupConstraints()
@@ -142,6 +154,15 @@ class MainMenuView: UIView{
         return view
     }()
     
+    private let tableView: UITableView = {
+        let tv = UITableView()
+        tv.backgroundColor = UIColor(named: "backgroungColor")
+        tv.register(CustomTableViewCell.self, forCellReuseIdentifier: "whichFranchiseCell")
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.isScrollEnabled = false
+        return tv
+    }()
+    
     
    // MARK: Setup Views
     
@@ -155,6 +176,7 @@ class MainMenuView: UIView{
         mainView.addSubview(collectionCategoryView)
         mainView.addSubview(selfInvestmentLabel)
         mainView.addSubview(collectionInvestView)
+        mainView.addSubview(tableView)
         
     }
     
@@ -223,11 +245,18 @@ class MainMenuView: UIView{
             collectionInvestView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
             collectionInvestView.heightAnchor.constraint(equalToConstant: 47)
         ])
-        
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: collectionInvestView.bottomAnchor, constant: 16),
+            tableView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
+            tableView.heightAnchor.constraint(equalToConstant: 196)
+        ])
+
     }
     
 }
-// MARK: EXTENSION Main Menu View
+// MARK: EXTENSION for Collection View
 
 extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
@@ -287,4 +316,25 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
             print("tapped on item '\(indexPath.row + 1 )' in Invest collection")
         }
     }
+}
+
+// MARK: EXTENSION for Table View
+
+extension MainMenuView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return whichFranchise.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "whichFranchiseCell", for: indexPath) as! CustomTableViewCell
+        let currentItem = whichFranchise[indexPath.item]
+        cell.data = currentItem
+        cell.backgroundColor = UIColor(named: "backgroundColor")
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
 }
