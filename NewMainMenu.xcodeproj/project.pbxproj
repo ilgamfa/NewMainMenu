@@ -85,16 +85,24 @@
 		BB66064626B1955E0002FC7E /* NewMainMenu */ = {
 			isa = PBXGroup;
 			children = (
+				BBCAC1FB26BBCAA90029B494 /* Files */,
 				BB4E510926B7D1A6008C2ABE /* Controller */,
 				BB4E510826B7D1A2008C2ABE /* View */,
 				BB4E510726B7D19B008C2ABE /* Model */,
-				BB66064726B1955E0002FC7E /* AppDelegate.swift */,
-				BB66064926B1955E0002FC7E /* SceneDelegate.swift */,
-				BB66065026B1955F0002FC7E /* Assets.xcassets */,
-				BB66065226B1955F0002FC7E /* LaunchScreen.storyboard */,
 				BB66065526B1955F0002FC7E /* Info.plist */,
 			);
 			path = NewMainMenu;
+			sourceTree = "<group>";
+		};
+		BBCAC1FB26BBCAA90029B494 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				BB66065226B1955F0002FC7E /* LaunchScreen.storyboard */,
+				BB66065026B1955F0002FC7E /* Assets.xcassets */,
+				BB66064926B1955E0002FC7E /* SceneDelegate.swift */,
+				BB66064726B1955E0002FC7E /* AppDelegate.swift */,
+			);
+			path = Files;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

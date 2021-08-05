@@ -10,7 +10,7 @@ import UIKit
 
 class MainMenuView: UIView{
    
-    
+    // MARK: Images
     private let imageCollectionCategory = [
         CustomData(backgroundImage: UIImage(named: "imageAllCat")!),
         CustomData(backgroundImage: UIImage(named: "imageAutoCat")!),
@@ -57,7 +57,7 @@ class MainMenuView: UIView{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    // MARK: SUB VIEWS
+    // MARK: Sub Views
     
     private let mainView: UIView = {
         let view = UIView(frame: .zero)
@@ -227,7 +227,7 @@ class MainMenuView: UIView{
     }
     
 }
-// MARK: EXTENSION
+// MARK: EXTENSION Main Menu View
 
 extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
@@ -280,6 +280,11 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("tapped on item \(indexPath.row + 1 )")
+        if collectionView == collectionCategoryView {
+            print("tapped on item '\(indexPath.row + 1 )' in Category collection")
+        }
+        else {
+            print("tapped on item '\(indexPath.row + 1 )' in Invest collection")
+        }
     }
 }
