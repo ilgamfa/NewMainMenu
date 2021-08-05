@@ -11,7 +11,7 @@ import UIKit
 class MainMenuView: UIView{
    
     
-    fileprivate let imageCollectionCategory = [
+    private let imageCollectionCategory = [
         CustomData(backgroundImage: UIImage(named: "imageAllCat")!),
         CustomData(backgroundImage: UIImage(named: "imageAutoCat")!),
         CustomData(backgroundImage: UIImage(named: "imageChildCat")!),
@@ -30,16 +30,25 @@ class MainMenuView: UIView{
         CustomData(backgroundImage: UIImage(named: "imageMedicineCat")!),
     ]
     
+    private let imageCollectionInvest = [
+        CustomData(backgroundImage: UIImage(named: "invest1")!),
+        CustomData(backgroundImage: UIImage(named: "invest2")!),
+        CustomData(backgroundImage: UIImage(named: "invest3")!),
+        CustomData(backgroundImage: UIImage(named: "invest4")!),
+        CustomData(backgroundImage: UIImage(named: "invest5")!),
+        CustomData(backgroundImage: UIImage(named: "invest6")!),
+        CustomData(backgroundImage: UIImage(named: "invest7")!)
+    ]
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        collectionCategoryView.tag = 101
         collectionCategoryView.dataSource = self
         collectionCategoryView.delegate = self
         
-        collectionInvestView.tag = 102
-        collectionInvestView.delegate = self
         collectionInvestView.dataSource = self
+        collectionInvestView.delegate = self
         
         setupViews()
         setupConstraints()
@@ -108,12 +117,12 @@ class MainMenuView: UIView{
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 17, right: 0)
         layout.itemSize = CGSize(width: 80, height: 122)
+        layout.minimumLineSpacing = 12
         layout.scrollDirection = .horizontal
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.register(CustomCollectionCategoryCell.self, forCellWithReuseIdentifier: "CollectionCategoryCell")
+        view.register(CustomCollectionCell.self, forCellWithReuseIdentifier: "CollectionCategoryCell")
         view.backgroundColor = UIColor(named: "backgroungColor")
-//        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -124,14 +133,15 @@ class MainMenuView: UIView{
     private let collectionInvestView: UICollectionView = {
 
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 10, right: 0)
         layout.itemSize = CGSize(width: 101, height: 41)
+        layout.minimumLineSpacing = 8
         layout.scrollDirection = .horizontal
 
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "CollectionInvestCell")
+        view.register(CustomCollectionCell.self, forCellWithReuseIdentifier: "CollectionInvestCell")
         view.backgroundColor = UIColor(named: "backgroungColor")
-//        view.backgroundColor = .white
+    
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -215,7 +225,7 @@ class MainMenuView: UIView{
             collectionInvestView.topAnchor.constraint(equalTo: selfInvestmentLabel.bottomAnchor, constant: 8),
             collectionInvestView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
             collectionInvestView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
-            collectionInvestView.heightAnchor.constraint(equalToConstant: 41)
+            collectionInvestView.heightAnchor.constraint(equalToConstant: 45)
         ])
         
     }
@@ -223,18 +233,18 @@ class MainMenuView: UIView{
 }
 // MARK: EXTENSION
 
-extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate{
+extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == collectionCategoryView {
-            let collectionCategoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCategoryCell", for: indexPath) as! CustomCollectionCategoryCell
+            let collectionCategoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCategoryCell", for: indexPath) as! CustomCollectionCell
             collectionCategoryCell.data = self.imageCollectionCategory[indexPath.item]
             return collectionCategoryCell
         }
         else {
-            let collectionInvestCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionInvestCell", for: indexPath)
-            collectionInvestCell.backgroundColor = .blue
+            let collectionInvestCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionInvestCell", for: indexPath) as! CustomCollectionCell
+            collectionInvestCell.data = self.imageCollectionInvest[indexPath.item]
             return collectionInvestCell
         }
         
@@ -245,9 +255,32 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate{
             return imageCollectionCategory.count
         }
         else if (collectionView == collectionInvestView) {
-            return 7
+            return imageCollectionInvest.count
         }
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var cellWidth: CGFloat
+        var cellHeight: CGFloat
+
+        if indexPath.item >= 0 && indexPath.item <= 2 && collectionView == collectionInvestView {
+            cellWidth = 101
+            cellHeight = 41
+        }
+        else if indexPath.item >= 3 && indexPath.item <= 5 && collectionView == collectionInvestView {
+            cellWidth = 112
+            cellHeight = 41
+        }
+        else if indexPath.item == 6  && collectionView == collectionInvestView {
+            cellWidth = 155
+            cellHeight = 41
+        }
+        else {
+            cellWidth = 80
+            cellHeight = 122
+        }
+        return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

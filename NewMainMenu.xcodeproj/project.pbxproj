@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB3D579426BAD10800676E5C /* CustomCollectionInvestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D579326BAD10800676E5C /* CustomCollectionInvestCell.swift */; };
 		BB4E510B26B7D1BF008C2ABE /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E510A26B7D1BF008C2ABE /* MainMenuView.swift */; };
 		BB66064826B1955E0002FC7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB66064726B1955E0002FC7E /* AppDelegate.swift */; };
 		BB66064A26B1955E0002FC7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB66064926B1955E0002FC7E /* SceneDelegate.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BB3D579326BAD10800676E5C /* CustomCollectionInvestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionInvestCell.swift; sourceTree = "<group>"; };
 		BB4E510A26B7D1BF008C2ABE /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		BB66064426B1955E0002FC7E /* NewMainMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewMainMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB66064726B1955E0002FC7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +45,7 @@
 			isa = PBXGroup;
 			children = (
 				BB87688026B960190081D653 /* CustomCollectionCategoryCell.swift */,
+				BB3D579326BAD10800676E5C /* CustomCollectionInvestCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			files = (
 				BB87688126B960190081D653 /* CustomCollectionCategoryCell.swift in Sources */,
 				BB66064C26B1955E0002FC7E /* MainMenuViewController.swift in Sources */,
+				BB3D579426BAD10800676E5C /* CustomCollectionInvestCell.swift in Sources */,
 				BB66064826B1955E0002FC7E /* AppDelegate.swift in Sources */,
 				BB4E510B26B7D1BF008C2ABE /* MainMenuView.swift in Sources */,
 				BB66064A26B1955E0002FC7E /* SceneDelegate.swift in Sources */,
