@@ -8,14 +8,13 @@
 import Foundation
 import UIKit
 
-struct CustomData {
+struct CustomCollectionData {
     var backgroundImage: UIImage
 }
 
-
 final class CustomCollectionCell: UICollectionViewCell {
     
-    var data: CustomData? {
+    var data: CustomCollectionData? {
         didSet {
             guard let data = data else { return }
             imageView.image = data.backgroundImage
