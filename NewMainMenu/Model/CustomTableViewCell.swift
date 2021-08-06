@@ -58,7 +58,7 @@ final class CustomTableViewCell: UITableViewCell {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            leftImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 18),
+            leftImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             leftImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
         
