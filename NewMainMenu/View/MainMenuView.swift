@@ -248,7 +248,7 @@ class MainMenuView: UIView {
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: collectionInvestView.bottomAnchor, constant: 16),
-            tableView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 18),
             tableView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
             tableView.heightAnchor.constraint(equalToConstant: 196)
         ])
@@ -329,7 +329,7 @@ extension MainMenuView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "whichFranchiseCell", for: indexPath) as! CustomTableViewCell
         let currentItem = whichFranchise[indexPath.item]
         cell.data = currentItem
-        cell.backgroundColor = UIColor(named: "backgroundColor")
+        cell.backgroundColor = UIColor(named: "backgroungColor")
         return cell
     }
     
