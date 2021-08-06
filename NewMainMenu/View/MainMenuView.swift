@@ -70,6 +70,14 @@ class MainMenuView: UIView {
     
     // MARK: Sub Views
     
+    private let scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.alwaysBounceVertical = true
+        scroll.alwaysBounceHorizontal = false
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
+    }()
+    
     private let mainView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -170,6 +178,9 @@ class MainMenuView: UIView {
         return label
     }()
     
+
+    
+    
     
    // MARK: Setup Views
     
@@ -177,14 +188,17 @@ class MainMenuView: UIView {
         self.addSubview(mainView)
         mainView.addSubview(whiteTopSpace)
         mainView.addSubview(topBarView)
-        mainView.addSubview(chooseCategoryLabel)
+        mainView.addSubview(scrollView)
+        
         topBarView.addSubview(searchBar)
         topBarView.addSubview(menuButton)
-        mainView.addSubview(collectionCategoryView)
-        mainView.addSubview(selfInvestmentLabel)
-        mainView.addSubview(collectionInvestView)
-        mainView.addSubview(tableView)
-        mainView.addSubview(selectionFranchisesLabel)
+        
+        scrollView.addSubview(chooseCategoryLabel)
+        scrollView.addSubview(collectionCategoryView)
+        scrollView.addSubview(selfInvestmentLabel)
+        scrollView.addSubview(collectionInvestView)
+        scrollView.addSubview(tableView)
+        scrollView.addSubview(selectionFranchisesLabel)
         
     }
     
@@ -228,7 +242,14 @@ class MainMenuView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            chooseCategoryLabel.topAnchor.constraint(equalTo: topBarView.bottomAnchor, constant: 16),
+            scrollView.topAnchor.constraint(equalTo: topBarView.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            chooseCategoryLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
             chooseCategoryLabel.heightAnchor.constraint(equalToConstant: 22),
             chooseCategoryLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
             chooseCategoryLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16)
@@ -267,7 +288,6 @@ class MainMenuView: UIView {
             selectionFranchisesLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
             selectionFranchisesLabel.heightAnchor.constraint(equalToConstant: 22)
         ])
-
     }
     
 }
