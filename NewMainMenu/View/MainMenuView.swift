@@ -9,7 +9,28 @@ import Foundation
 import UIKit
 
 class MainMenuView: UIView {
+    // MARK: Init
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        collectionCategoryView.dataSource = self
+        collectionCategoryView.delegate = self
+        
+        collectionInvestView.dataSource = self
+        collectionInvestView.delegate = self
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        setupViews()
+        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: Images
     private let imageCollectionCategory = [
         CustomCollectionData(backgroundImage: UIImage(named: "imageAllCat")!),
@@ -47,28 +68,6 @@ class MainMenuView: UIView {
         CustomTableData(whichFranchise: "Отзывы о франшизах", whichFranchiseImage: UIImage(named: "reviewFr")!, arrow: UIImage(named: "arrowFr")!)
     ]
     
-    
-    // MARK: Init
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        collectionCategoryView.dataSource = self
-        collectionCategoryView.delegate = self
-        
-        collectionInvestView.dataSource = self
-        collectionInvestView.delegate = self
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        setupViews()
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     // MARK: Sub Views
     
     private let mainView: UIView = {
@@ -163,6 +162,14 @@ class MainMenuView: UIView {
         return tv
     }()
     
+    private let selectionFranchisesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Подборка франшиз"
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     
    // MARK: Setup Views
     
@@ -177,6 +184,7 @@ class MainMenuView: UIView {
         mainView.addSubview(selfInvestmentLabel)
         mainView.addSubview(collectionInvestView)
         mainView.addSubview(tableView)
+        mainView.addSubview(selectionFranchisesLabel)
         
     }
     
@@ -251,6 +259,13 @@ class MainMenuView: UIView {
             tableView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 18),
             tableView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
             tableView.heightAnchor.constraint(equalToConstant: 196)
+        ])
+        
+        NSLayoutConstraint.activate([
+            selectionFranchisesLabel.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 10),
+            selectionFranchisesLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
+            selectionFranchisesLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
+            selectionFranchisesLabel.heightAnchor.constraint(equalToConstant: 22)
         ])
 
     }
