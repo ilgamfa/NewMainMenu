@@ -41,10 +41,19 @@ class MainMenuView: UIView {
     ]
     
     private let whichFranchise = [
-        CustomTableData(whichFranchise: "Новые франшизы", whichFranchiseImage: UIImage(named: "newFr")!, arrow: UIImage(named: "arrowFr")!),
-        CustomTableData(whichFranchise: "Франшизы со скидкой", whichFranchiseImage: UIImage(named: "saleFr")!, arrow: UIImage(named: "arrowFr")!),
-        CustomTableData(whichFranchise: "Недорогие франшизы", whichFranchiseImage: UIImage(named: "cheapFr")!, arrow: UIImage(named: "arrowFr")!),
-        CustomTableData(whichFranchise: "Отзывы о франшизах", whichFranchiseImage: UIImage(named: "reviewFr")!, arrow: UIImage(named: "arrowFr")!)
+        WhichFranchiseData(whichFranchiseName: "Новые франшизы", whichFranchiseImage: UIImage(named: "newFr")!, arrowImage: UIImage(named: "arrowFr")!),
+        WhichFranchiseData(whichFranchiseName: "Франшизы со скидкой", whichFranchiseImage: UIImage(named: "saleFr")!, arrowImage: UIImage(named: "arrowFr")!),
+        WhichFranchiseData(whichFranchiseName: "Недорогие франшизы", whichFranchiseImage: UIImage(named: "cheapFr")!, arrowImage: UIImage(named: "arrowFr")!),
+        WhichFranchiseData(whichFranchiseName: "Отзывы о франшизах", whichFranchiseImage: UIImage(named: "reviewFr")!, arrowImage: UIImage(named: "arrowFr")!)
+    ]
+    
+    private let popularCategory = [
+        PopularCategoryData(popularCategoryName: "Недорогие франшизы", counter: "1569", arrow: UIImage(named: "arrowFr")!),
+        PopularCategoryData(popularCategoryName: "Домашний бизнес", counter: "27", arrow: UIImage(named: "arrowFr")!),
+        PopularCategoryData(popularCategoryName: "Зароботок не лето франшизы", counter: "204", arrow: UIImage(named: "arrowFr")!),
+        PopularCategoryData(popularCategoryName: "Для маленького города", counter: "6", arrow: UIImage(named: "arrowFr")!),
+        PopularCategoryData(popularCategoryName: "Домашний бизнес", counter: "123", arrow: UIImage(named: "arrowFr")!),
+        PopularCategoryData(popularCategoryName: "Показать еще", counter: "", arrow: UIImage(named: "arrowFr")!),
     ]
     
     
@@ -59,8 +68,11 @@ class MainMenuView: UIView {
         collectionInvestView.dataSource = self
         collectionInvestView.delegate = self
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        tableViewWhichFranchise.delegate = self
+        tableViewWhichFranchise.dataSource = self
+        
+        tableViewPopularCategory.delegate = self
+        tableViewPopularCategory.dataSource = self
         
         setupViews()
         setupConstraints()
@@ -154,12 +166,20 @@ class MainMenuView: UIView {
         return view
     }()
     
-    private let tableView: UITableView = {
+    private let tableViewWhichFranchise: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = UIColor(named: "backgroungColor")
-        tv.register(CustomTableViewCell.self, forCellReuseIdentifier: "whichFranchiseCell")
+        tv.register(WhichFranchiseViewCell.self, forCellReuseIdentifier: "whichFranchiseCell")
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.isScrollEnabled = false
+        return tv
+    }()
+    
+    private let tableViewPopularCategory: UITableView = {
+        let tv = UITableView()
+//        tv.backgroundColor = UIColor(named: "backgroungColor")
+        tv.register(PopularCategotyViewCell.self, forCellReuseIdentifier: "popularCategoryCell")
+        tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
     
@@ -176,8 +196,8 @@ class MainMenuView: UIView {
         mainView.addSubview(collectionCategoryView)
         mainView.addSubview(selfInvestmentLabel)
         mainView.addSubview(collectionInvestView)
-        mainView.addSubview(tableView)
-        
+        mainView.addSubview(tableViewWhichFranchise)
+        mainView.addSubview(tableViewPopularCategory)
     }
     
     // MARK: Auto Layout Constraints
@@ -247,11 +267,19 @@ class MainMenuView: UIView {
         ])
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: collectionInvestView.bottomAnchor, constant: 16),
-            tableView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 18),
-            tableView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
-            tableView.heightAnchor.constraint(equalToConstant: 196)
+            tableViewWhichFranchise.topAnchor.constraint(equalTo: collectionInvestView.bottomAnchor, constant: 16),
+            tableViewWhichFranchise.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 18),
+            tableViewWhichFranchise.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
+            tableViewWhichFranchise.heightAnchor.constraint(equalToConstant: 196)
         ])
+        
+        NSLayoutConstraint.activate([
+            tableViewPopularCategory.topAnchor.constraint(equalTo: tableViewWhichFranchise.bottomAnchor, constant: 1),
+            tableViewPopularCategory.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
+            tableViewPopularCategory.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
+            tableViewPopularCategory.heightAnchor.constraint(equalToConstant: 150)
+        ])
+        
 
     }
     
@@ -322,16 +350,35 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
 
 extension MainMenuView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return whichFranchise.count
+        
+        if tableView == tableViewWhichFranchise {
+            return whichFranchise.count
+        }
+        else {
+            return popularCategory.count
+        }
+        
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "whichFranchiseCell", for: indexPath) as! CustomTableViewCell
-        let currentItem = whichFranchise[indexPath.item]
-        cell.data = currentItem
-        cell.backgroundColor = UIColor(named: "backgroungColor")
-        return cell
+        
+        if tableView == tableViewWhichFranchise {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "whichFranchiseCell", for: indexPath) as! WhichFranchiseViewCell
+            let currentItem = whichFranchise[indexPath.item]
+            cell.data = currentItem
+            cell.backgroundColor = UIColor(named: "backgroungColor")
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "popularCategoryCell", for: indexPath) as! PopularCategotyViewCell
+            let currentItem = popularCategory[indexPath.item]
+            cell.data = currentItem
+            cell.backgroundColor = UIColor(named: "backgroungColor")
+            return cell
+        }
+       
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

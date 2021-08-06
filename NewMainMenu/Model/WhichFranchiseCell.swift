@@ -8,18 +8,18 @@
 import Foundation
 import UIKit
 
-struct CustomTableData {
-    var whichFranchise: String
+struct WhichFranchiseData {
+    var whichFranchiseName: String
     var whichFranchiseImage: UIImage
-    var arrow : UIImage
+    var arrowImage : UIImage
 }
 
-final class CustomTableViewCell: UITableViewCell {
-    var data: CustomTableData? {
+final class WhichFranchiseViewCell: UITableViewCell {
+    var data: WhichFranchiseData? {
         didSet {
-            label.text = data?.whichFranchise
+            label.text = data?.whichFranchiseName
             leftImage.image = data?.whichFranchiseImage
-            rightImage.image = data?.arrow
+            rightImage.image = data?.arrowImage
         }
     }
     
