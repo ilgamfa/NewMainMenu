@@ -23,6 +23,9 @@ class MainMenuView: UIView {
         collectionSelectionView.dataSource = self
         collectionSelectionView.delegate = self
         
+        collectionReviewfranchiseView.dataSource = self
+        collectionReviewfranchiseView.delegate = self
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -70,6 +73,7 @@ class MainMenuView: UIView {
         CustomTableData(whichFranchise: "Недорогие франшизы", whichFranchiseImage: UIImage(named: "cheapFr")!, arrow: UIImage(named: "arrowFr")!),
         CustomTableData(whichFranchise: "Отзывы о франшизах", whichFranchiseImage: UIImage(named: "reviewFr")!, arrow: UIImage(named: "arrowFr")!)
     ]
+    
     private let selectionFranchise = [
         CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
         CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
@@ -82,6 +86,13 @@ class MainMenuView: UIView {
         CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
         CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
         
+    ]
+    
+    private let reviewFranchise = [
+        CustomReviewCollectionData(reviewTitle: "За три месяца с начала 'Шаттла' суммар...", reviewDescr: "Это мой второй Шаттл. Участие в нем дает возможность видеть, как другие что-то делают, новые идеи, и я не замыкаюсь на...", authImage: UIImage(named: "exampleAuthImage")!, authFullName: "Имя Фамилия", authCity: "Город", franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Название франшизы", descriptionFranchise: "Описание франшизы", costFranchise: "100 000 ₽"),
+        CustomReviewCollectionData(reviewTitle: "За три месяца с начала 'Шаттла' суммар...", reviewDescr: "Это мой второй Шаттл. Участие в нем дает возможность видеть, как другие что-то делают, новые идеи, и я не замыкаюсь на...", authImage: UIImage(named: "exampleAuthImage")!, authFullName: "Имя Фамилия", authCity: "Город", franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Название франшизы", descriptionFranchise: "Описание франшизы", costFranchise: "100 000 ₽"),
+        CustomReviewCollectionData(reviewTitle: "За три месяца с начала 'Шаттла' суммар...", reviewDescr: "Это мой второй Шаттл. Участие в нем дает возможность видеть, как другие что-то делают, новые идеи, и я не замыкаюсь на...", authImage: UIImage(named: "exampleAuthImage")!, authFullName: "Имя Фамилия", authCity: "Город", franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Название франшизы", descriptionFranchise: "Описание франшизы", costFranchise: "100 000 ₽"),
+        CustomReviewCollectionData(reviewTitle: "За три месяца с начала 'Шаттла' суммар...", reviewDescr: "Это мой второй Шаттл. Участие в нем дает возможность видеть, как другие что-то делают, новые идеи, и я не замыкаюсь на...", authImage: UIImage(named: "exampleAuthImage")!, authFullName: "Имя Фамилия", authCity: "Город", franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Название франшизы", descriptionFranchise: "Описание франшизы", costFranchise: "100 000 ₽"),
     ]
     
     
@@ -204,7 +215,6 @@ class MainMenuView: UIView {
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(CustomCollectionSelectionCell.self, forCellWithReuseIdentifier: "CollectionSelectionCell")
         view.backgroundColor = UIColor(named: "backgroungColor")
-//        view.backgroundColor = .darkGray
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isScrollEnabled = false
         return view
@@ -218,7 +228,20 @@ class MainMenuView: UIView {
         return label
     }()
     
-    
+    private let collectionReviewfranchiseView: UICollectionView = {
+
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 17, right: 0)
+        layout.itemSize = CGSize(width: 314, height: 251)
+        layout.minimumLineSpacing = 12
+        layout.scrollDirection = .horizontal
+
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.register(CustomReviewCollectionCell.self, forCellWithReuseIdentifier: "CollectionReviewCell")
+        view.backgroundColor = UIColor(named: "backgroungColor")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     
    // MARK: Setup Views
@@ -240,7 +263,7 @@ class MainMenuView: UIView {
         scrollView.addSubview(selectionFranchisesLabel)
         scrollView.addSubview(collectionSelectionView)
         scrollView.addSubview(reviewFranchisesLabel)
-        
+        scrollView.addSubview(collectionReviewfranchiseView)
     }
     
     // MARK: Auto Layout Constraints
@@ -302,6 +325,7 @@ class MainMenuView: UIView {
             collectionCategoryView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
             collectionCategoryView.heightAnchor.constraint(equalToConstant: 139)
         ])
+        
         NSLayoutConstraint.activate([
             selfInvestmentLabel.topAnchor.constraint(equalTo: collectionCategoryView.bottomAnchor, constant: 16.5),
             selfInvestmentLabel.heightAnchor.constraint(equalToConstant: 22),
@@ -334,7 +358,6 @@ class MainMenuView: UIView {
             collectionSelectionView.topAnchor.constraint(equalTo: selectionFranchisesLabel.bottomAnchor, constant: 16),
             collectionSelectionView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
             collectionSelectionView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
-            collectionSelectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             collectionSelectionView.heightAnchor.constraint(equalToConstant: 934)
         ])
         
@@ -343,10 +366,19 @@ class MainMenuView: UIView {
             reviewFranchisesLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
             reviewFranchisesLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
             reviewFranchisesLabel.heightAnchor.constraint(equalToConstant: 22),
-            reviewFranchisesLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-            
         ])
+        
+        NSLayoutConstraint.activate([
+            collectionReviewfranchiseView.topAnchor.constraint(equalTo: reviewFranchisesLabel.bottomAnchor, constant: 16),
+            collectionReviewfranchiseView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
+            collectionReviewfranchiseView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
+            collectionReviewfranchiseView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            collectionReviewfranchiseView.heightAnchor.constraint(equalToConstant: 251),
+        
+        ])
+        
     }
+    
     
 }
 // MARK: EXTENSION for Collection View
@@ -365,6 +397,19 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
             collectionInvestCell.data = self.imageCollectionInvest[indexPath.item]
             return collectionInvestCell
         }
+        
+        else if collectionView == collectionReviewfranchiseView {
+            let collectionReviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionReviewCell", for: indexPath) as! CustomReviewCollectionCell
+            collectionReviewCell.data = self.reviewFranchise[indexPath.item]
+            collectionReviewCell.backgroundColor = .white
+            collectionReviewCell.layer.masksToBounds = true
+//            collectionReviewCell.layer.borderWidth = 1
+//            collectionReviewCell.layer.borderColor = UIColor.clear.cgColor
+            collectionReviewCell.layer.cornerRadius = 16
+           
+            return collectionReviewCell
+        }
+        
         else {
             let collectionSelectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionSelectionCell", for: indexPath) as! CustomCollectionSelectionCell
             collectionSelectionCell.data = selectionFranchise[indexPath.item]
@@ -381,6 +426,9 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
         }
         else if (collectionView == collectionSelectionView) {
             return selectionFranchise.count
+        }
+        else if (collectionView == collectionReviewfranchiseView) {
+            return reviewFranchise.count
         }
         return 0
     }
@@ -405,6 +453,10 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
         else if collectionView == collectionSelectionView {
             cellWidth = 156
             cellHeight = 174
+        }
+        else if collectionView == collectionReviewfranchiseView {
+            cellWidth = 314
+            cellHeight = 251
         }
         
         else {
