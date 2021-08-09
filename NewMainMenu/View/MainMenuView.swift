@@ -20,6 +20,9 @@ class MainMenuView: UIView {
         collectionInvestView.dataSource = self
         collectionInvestView.delegate = self
         
+        collectionSelectionView.dataSource = self
+        collectionSelectionView.delegate = self
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -67,6 +70,20 @@ class MainMenuView: UIView {
         CustomTableData(whichFranchise: "Недорогие франшизы", whichFranchiseImage: UIImage(named: "cheapFr")!, arrow: UIImage(named: "arrowFr")!),
         CustomTableData(whichFranchise: "Отзывы о франшизах", whichFranchiseImage: UIImage(named: "reviewFr")!, arrow: UIImage(named: "arrowFr")!)
     ]
+    private let selectionFranchise = [
+        CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
+        CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
+        CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
+        CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
+        CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
+        CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
+        CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
+        CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
+        CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
+        CustomSelectionData(mainImage: UIImage(named: "exampleMainImage")!, favoriteMarkImage: UIImage(named: "exampleFavoriteMark")!, franchiseImage: UIImage(named: "exampleImageFranchise")!, titleFranchise: "Pedant.ru", descriptionFranchise: "Сервисные центры", costFranchise: "490 000 - 990 000 ₽"),
+        
+    ]
+    
     
     // MARK: Sub Views
     
@@ -178,7 +195,22 @@ class MainMenuView: UIView {
         return label
     }()
     
+    private let collectionSelectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: 156, height: 174)
+        layout.minimumLineSpacing = 8
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.register(CustomCollectionSelectionCell.self, forCellWithReuseIdentifier: "CollectionSelectionCell")
+        view.backgroundColor = UIColor(named: "backgroungColor")
+//        view.backgroundColor = .darkGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isScrollEnabled = false
+        return view
+    }()
 
+    
     
     
     
@@ -199,6 +231,7 @@ class MainMenuView: UIView {
         scrollView.addSubview(collectionInvestView)
         scrollView.addSubview(tableView)
         scrollView.addSubview(selectionFranchisesLabel)
+        scrollView.addSubview(collectionSelectionView)
         
     }
     
@@ -288,6 +321,14 @@ class MainMenuView: UIView {
             selectionFranchisesLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
             selectionFranchisesLabel.heightAnchor.constraint(equalToConstant: 22)
         ])
+        
+        NSLayoutConstraint.activate([
+            collectionSelectionView.topAnchor.constraint(equalTo: selectionFranchisesLabel.bottomAnchor, constant: 16),
+            collectionSelectionView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
+            collectionSelectionView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
+            collectionSelectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            collectionSelectionView.heightAnchor.constraint(equalToConstant: 934)
+        ])
     }
     
 }
@@ -302,12 +343,16 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
             collectionCategoryCell.data = self.imageCollectionCategory[indexPath.item]
             return collectionCategoryCell
         }
-        else {
+        else if collectionView == collectionInvestView{
             let collectionInvestCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionInvestCell", for: indexPath) as! CustomCollectionCell
             collectionInvestCell.data = self.imageCollectionInvest[indexPath.item]
             return collectionInvestCell
         }
-        
+        else {
+            let collectionSelectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionSelectionCell", for: indexPath) as! CustomCollectionSelectionCell
+            collectionSelectionCell.data = selectionFranchise[indexPath.item]
+            return collectionSelectionCell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -316,6 +361,9 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
         }
         else if (collectionView == collectionInvestView) {
             return imageCollectionInvest.count
+        }
+        else if (collectionView == collectionSelectionView) {
+            return selectionFranchise.count
         }
         return 0
     }
@@ -336,6 +384,12 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
             cellWidth = 155
             cellHeight = 47
         }
+        
+        else if collectionView == collectionSelectionView {
+            cellWidth = 156
+            cellHeight = 174
+        }
+        
         else {
             cellWidth = 80
             cellHeight = 122
