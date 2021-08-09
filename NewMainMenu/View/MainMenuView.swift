@@ -209,7 +209,14 @@ class MainMenuView: UIView {
         view.isScrollEnabled = false
         return view
     }()
-
+    
+    private let reviewFranchisesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Отзывы о франшизах"
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     
     
@@ -232,6 +239,7 @@ class MainMenuView: UIView {
         scrollView.addSubview(tableView)
         scrollView.addSubview(selectionFranchisesLabel)
         scrollView.addSubview(collectionSelectionView)
+        scrollView.addSubview(reviewFranchisesLabel)
         
     }
     
@@ -328,6 +336,15 @@ class MainMenuView: UIView {
             collectionSelectionView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
             collectionSelectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             collectionSelectionView.heightAnchor.constraint(equalToConstant: 934)
+        ])
+        
+        NSLayoutConstraint.activate([
+            reviewFranchisesLabel.topAnchor.constraint(equalTo: collectionSelectionView.bottomAnchor, constant: 10),
+            reviewFranchisesLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
+            reviewFranchisesLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
+            reviewFranchisesLabel.heightAnchor.constraint(equalToConstant: 22),
+            reviewFranchisesLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            
         ])
     }
     
