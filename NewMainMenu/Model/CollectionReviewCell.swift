@@ -39,7 +39,6 @@ final class CustomReviewCollectionCell: UICollectionViewCell {
     private let reviewTitle: UILabel = {
         let title = UILabel()
         title.font = UIFont.boldSystemFont(ofSize: 14)
-        title.backgroundColor = .darkGray
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -48,14 +47,12 @@ final class CustomReviewCollectionCell: UICollectionViewCell {
         let title = UILabel()
         title.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         title.numberOfLines = 0
-        title.backgroundColor = .lightGray
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
     
     private let authorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .purple
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -68,25 +65,34 @@ final class CustomReviewCollectionCell: UICollectionViewCell {
     
     private let authFullName: UILabel = {
         let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let authCity: UILabel = {
         let city = UILabel()
+        city.textColor = .gray
+        city.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         city.translatesAutoresizingMaskIntoConstraints = false
         return city
     }()
     
     private let franchiseView: UIView = {
         let view = UIView()
-        view.backgroundColor = .cyan
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let franchiseImage: UIImageView = {
         let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+
+    private let favoriteImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "exampleFavorite")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -110,7 +116,6 @@ final class CustomReviewCollectionCell: UICollectionViewCell {
         let cost = UILabel()
         cost.textColor = .gray
         cost.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-
         cost.translatesAutoresizingMaskIntoConstraints = false
         return cost
     }()
@@ -132,6 +137,7 @@ final class CustomReviewCollectionCell: UICollectionViewCell {
         franchiseView.addSubview(titleFranchise)
         franchiseView.addSubview(descriptionFranchise)
         franchiseView.addSubview(costFranchise)
+        franchiseView.addSubview(favoriteImage)
         
         setupConstraints()
     }
@@ -163,59 +169,57 @@ final class CustomReviewCollectionCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            authImage.topAnchor.constraint(equalTo: authorView.topAnchor),
-            authImage.leadingAnchor.constraint(equalTo: authorView.leadingAnchor),
-            authImage.heightAnchor.constraint(equalTo: authorView.heightAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
             authFullName.topAnchor.constraint(equalTo: authorView.topAnchor),
-            authFullName.leadingAnchor.constraint(equalTo: authImage.trailingAnchor, constant: 12),
+            authFullName.leadingAnchor.constraint(equalTo: authorView.leadingAnchor, constant: 60),
             authFullName.trailingAnchor.constraint(equalTo: authorView.trailingAnchor),
             authFullName.widthAnchor.constraint(equalToConstant: 22)
         ])
         
         NSLayoutConstraint.activate([
             authCity.topAnchor.constraint(equalTo: authFullName.bottomAnchor),
-            authCity.leadingAnchor.constraint(equalTo: authImage.trailingAnchor, constant: 12),
+            authCity.leadingAnchor.constraint(equalTo: authorView.leadingAnchor, constant: 60),
             authCity.trailingAnchor.constraint(equalTo: authorView.trailingAnchor),
             authCity.widthAnchor.constraint(equalToConstant: 18)
         ])
         
-        
         NSLayoutConstraint.activate([
-            franchiseView.topAnchor.constraint(equalTo: authorView.bottomAnchor, constant: 33),
+            franchiseView.topAnchor.constraint(equalTo: authorView.bottomAnchor, constant: 32),
             franchiseView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             franchiseView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
             franchiseView.heightAnchor.constraint(equalToConstant: 60),
         ])
         
         NSLayoutConstraint.activate([
-            franchiseImage.topAnchor.constraint(equalTo: franchiseView.topAnchor),
-            franchiseImage.leadingAnchor.constraint(equalTo: franchiseView.leadingAnchor),
-//            franchiseImage.bottomAnchor.constraint(equalTo: franchiseView.bottomAnchor),
-        ])
-        
-        NSLayoutConstraint.activate([
             titleFranchise.topAnchor.constraint(equalTo: franchiseView.topAnchor),
-            titleFranchise.leadingAnchor.constraint(equalTo: franchiseImage.trailingAnchor, constant: 12),
+            titleFranchise.leadingAnchor.constraint(equalTo: franchiseView.leadingAnchor, constant: 80),
             titleFranchise.trailingAnchor.constraint(equalTo: franchiseView.trailingAnchor),
             titleFranchise.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         NSLayoutConstraint.activate([
             descriptionFranchise.topAnchor.constraint(equalTo: titleFranchise.bottomAnchor),
-            descriptionFranchise.leadingAnchor.constraint(equalTo: franchiseImage.trailingAnchor, constant: 12),
+            descriptionFranchise.leadingAnchor.constraint(equalTo: franchiseView.leadingAnchor, constant: 80),
             descriptionFranchise.trailingAnchor.constraint(equalTo: franchiseView.trailingAnchor),
             descriptionFranchise.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         NSLayoutConstraint.activate([
             costFranchise.topAnchor.constraint(equalTo: descriptionFranchise.bottomAnchor),
-            costFranchise.leadingAnchor.constraint(equalTo: franchiseImage.trailingAnchor, constant: 12),
+            costFranchise.leadingAnchor.constraint(equalTo: franchiseView.leadingAnchor, constant: 80),
             costFranchise.trailingAnchor.constraint(equalTo: franchiseView.trailingAnchor),
             costFranchise.heightAnchor.constraint(equalToConstant: 20)
         ])
+        
+        NSLayoutConstraint.activate([
+            franchiseImage.centerYAnchor.constraint(equalTo: franchiseView.centerYAnchor, constant: 3),
+            franchiseImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            favoriteImage.centerYAnchor.constraint(equalTo: titleFranchise.centerYAnchor),
+            favoriteImage.trailingAnchor.constraint(equalTo: franchiseView.trailingAnchor)
+        ])
+        
         
     }
 }

@@ -231,8 +231,8 @@ class MainMenuView: UIView {
     private let collectionReviewfranchiseView: UICollectionView = {
 
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 17, right: 0)
-        layout.itemSize = CGSize(width: 314, height: 251)
+        layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 0)
+//        layout.itemSize = CGSize(width: 314, height: 251)
         layout.minimumLineSpacing = 12
         layout.scrollDirection = .horizontal
 
@@ -403,10 +403,7 @@ extension MainMenuView: UICollectionViewDataSource, UICollectionViewDelegate, UI
             collectionReviewCell.data = self.reviewFranchise[indexPath.item]
             collectionReviewCell.backgroundColor = .white
             collectionReviewCell.layer.masksToBounds = true
-//            collectionReviewCell.layer.borderWidth = 1
-//            collectionReviewCell.layer.borderColor = UIColor.clear.cgColor
             collectionReviewCell.layer.cornerRadius = 16
-           
             return collectionReviewCell
         }
         
