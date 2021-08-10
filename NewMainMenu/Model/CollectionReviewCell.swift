@@ -120,6 +120,13 @@ final class CustomReviewCollectionCell: UICollectionViewCell {
         return cost
     }()
     
+    private let horizontalLine: UIView = {
+        let line = UIView()
+        line.backgroundColor = UIColor(named: "horizontalLine")
+        line.translatesAutoresizingMaskIntoConstraints = false
+        return line
+    }()
+    
     
     
     override init(frame: CGRect) {
@@ -127,6 +134,7 @@ final class CustomReviewCollectionCell: UICollectionViewCell {
         contentView.addSubview(reviewTitle)
         contentView.addSubview(reviewDescr)
         contentView.addSubview(authorView)
+        contentView.addSubview(horizontalLine)
         contentView.addSubview(franchiseView)
         
         authorView.addSubview(authImage)
@@ -138,6 +146,7 @@ final class CustomReviewCollectionCell: UICollectionViewCell {
         franchiseView.addSubview(descriptionFranchise)
         franchiseView.addSubview(costFranchise)
         franchiseView.addSubview(favoriteImage)
+        
         
         setupConstraints()
     }
@@ -180,6 +189,13 @@ final class CustomReviewCollectionCell: UICollectionViewCell {
             authCity.leadingAnchor.constraint(equalTo: authorView.leadingAnchor, constant: 60),
             authCity.trailingAnchor.constraint(equalTo: authorView.trailingAnchor),
             authCity.widthAnchor.constraint(equalToConstant: 18)
+        ])
+        
+        NSLayoutConstraint.activate([
+            horizontalLine.topAnchor.constraint(equalTo: authorView.bottomAnchor, constant: 16),
+            horizontalLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            horizontalLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            horizontalLine.heightAnchor.constraint(equalToConstant: 1),
         ])
         
         NSLayoutConstraint.activate([
