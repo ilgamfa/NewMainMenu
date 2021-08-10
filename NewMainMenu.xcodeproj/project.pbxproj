@@ -15,6 +15,7 @@
 		BB66065126B1955F0002FC7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB66065026B1955F0002FC7E /* Assets.xcassets */; };
 		BB66065426B1955F0002FC7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB66065226B1955F0002FC7E /* LaunchScreen.storyboard */; };
 		BB87688126B960190081D653 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB87688026B960190081D653 /* CollectionCell.swift */; };
+		BBBC29FD26C151B900C90F3B /* CollectionReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBC29FC26C151B900C90F3B /* CollectionReviewCell.swift */; };
 		BBF5B5C326BBF77C00755B50 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF5B5C226BBF77C00755B50 /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		BB66065326B1955F0002FC7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB66065526B1955F0002FC7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB87688026B960190081D653 /* CollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
+		BBBC29FC26C151B900C90F3B /* CollectionReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReviewCell.swift; sourceTree = "<group>"; };
 		BBF5B5C226BBF77C00755B50 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,6 +51,7 @@
 				BB87688026B960190081D653 /* CollectionCell.swift */,
 				BBF5B5C226BBF77C00755B50 /* TableViewCell.swift */,
 				BB3EDB8C26C101A3001A87EE /* SelectionCell.swift */,
+				BBBC29FC26C151B900C90F3B /* CollectionReviewCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				BBF5B5C326BBF77C00755B50 /* TableViewCell.swift in Sources */,
 				BB87688126B960190081D653 /* CollectionCell.swift in Sources */,
 				BB66064C26B1955E0002FC7E /* MainMenuViewController.swift in Sources */,
+				BBBC29FD26C151B900C90F3B /* CollectionReviewCell.swift in Sources */,
 				BB66064826B1955E0002FC7E /* AppDelegate.swift in Sources */,
 				BB4E510B26B7D1BF008C2ABE /* MainMenuView.swift in Sources */,
 				BB3EDB8D26C101A3001A87EE /* SelectionCell.swift in Sources */,
